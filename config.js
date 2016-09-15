@@ -51,6 +51,10 @@ var config = {
 
   // Set to true to enable HTTP Basic Authentication
   authentication : false,
+  credentials    : {
+    username : 'admin',
+    password : 'password'
+  },
 
   locale: 'en',
 
