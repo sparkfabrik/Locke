@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# Ask questions to the user to configure this repository
+
+read -p "Provide a title for your project [Locke]: " SITE_TITLE
+if [ -z "$SITE_TITLE" ]; then
+  SITE_TITLE='Locke'
+fi
+
+read -p "Provide the local domain your FQDN dnsdock alias [locke.loc]: " DNSDOCK_ALIAS
+if [ -z "$DNSDOCK_ALIAS" ]; then
+  DNSDOCK_ALIAS='locke.loc'
+fi
+
+read -p "Provide an e-mail for site owner [info@locke.loc]: " EMAIL
+if [ -z "$EMAIL" ]; then
+  EMAIL='info@locke.loc';
+fi
+
+# Write configuration for this project
+
+sed "s/@SITE_TITLE@/${SITE_TITLE}/g;s/@EMAIL@/${EMAIL}/g" config.js.dist > config.js
+echo "Project configuration generated"
+
+sed "s/@DNSDOCK_ALIAS@/${DNSDOCK_ALIAS}/g" docker-compose.yml.dist > docker-compose.yml
+echo "Docker-compose file generated"
+
+# Remove git history from Locke project
+rm -rf .git
+
+# Define if the project needs a new repository
+
+read -p "Is your project standalone? (refer to documentation) [y/n]: " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+
+  # Init new git repository
+  git init -q
+  echo "Git repository initialized"
+
+
+  # Try to set remotes if available
+
+  read -p "Provide the new origin remote for your project (leave empty for none): " REMOTE
+  if [ ! -z "$REMOTE" ]; then
+    git remote add origin $REMOTE
+    echo "Added ${REMOTE} as origin to project repository"
+  fi
+
+else
+
+  echo "Assuming not"
+
+fi
+
+# Prepare documentation folder
+read -p "Remove standard documentation? [y/n]: " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  rm -rf content/*
+  echo "Standard documentation removed"
+fi
+
+read -p "Clean workspace? (will delete this script also!) [y/n]: " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  ## Make some clean
+  rm -f config.js.dist
+  rm -f docker-compose.yml.dist
+  rm -f configure
+  echo "Workspace cleaned"
+fi
+
+echo 
+echo "All done! Enjoy your documentation."
+echo
+
