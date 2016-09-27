@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Ask questions to the user to configure this repository
-
 read -p "Provide a title for your project [Locke]: " SITE_TITLE
 if [ -z "$SITE_TITLE" ]; then
   SITE_TITLE='Locke'
@@ -18,8 +17,7 @@ if [ -z "$EMAIL" ]; then
 fi
 
 # Write configuration for this project
-
-sed "s/@SITE_TITLE@/${SITE_TITLE}/g;s/@EMAIL@/${EMAIL}/g" config.js.dist > config.js
+sed "s/@SITE_TITLE@/${SITE_TITLE}/g;s/@EMAIL@/${EMAIL}/g" custom/config.js.dist > custom/config.js
 echo "Project configuration generated"
 
 sed "s/@DNSDOCK_ALIAS@/${DNSDOCK_ALIAS}/g" docker-compose.yml.dist > docker-compose.yml
@@ -29,7 +27,6 @@ echo "Docker-compose file generated"
 rm -rf .git
 
 # Define if the project needs a new repository
-
 read -p "Is your project standalone? (refer to documentation) [y/n]: " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -41,7 +38,6 @@ then
 
 
   # Try to set remotes if available
-
   read -p "Provide the new origin remote for your project (leave empty for none): " REMOTE
   if [ ! -z "$REMOTE" ]; then
     git remote add origin $REMOTE
@@ -49,9 +45,8 @@ then
   fi
 
 else
-
   echo "Assuming not"
-
+  rm -f Dockerfile
 fi
 
 # Prepare documentation folder
@@ -68,13 +63,13 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   ## Make some clean
-  rm -f config.js.dist
+  rm -f custom/config.js.dist
   rm -f docker-compose.yml.dist
   rm -f configure
   echo "Workspace cleaned"
 fi
 
-echo 
+echo
 echo "All done! Enjoy your documentation."
 echo
 
