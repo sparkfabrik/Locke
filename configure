@@ -39,6 +39,8 @@ then
   git init -q
   echo "Git repository initialized"
 
+  rm -f .gitignore
+  cp .gitignore.dist .gitignore
 
   # Try to set remotes if available
 
@@ -63,7 +65,7 @@ then
   echo "Standard documentation removed"
 fi
 
-read -p "Clean workspace? (will delete this script also!) [y/n]: " -n 1 -r
+read -p "Clean workspace? (will delete this script too!) [y/n]: " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -74,7 +76,7 @@ then
   echo "Workspace cleaned"
 fi
 
-echo 
+echo
 echo "All done! Enjoy your documentation."
 echo
 

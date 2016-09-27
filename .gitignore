@@ -1,0 +1,10 @@
+# Local configuration files.
+#
+# These should be versioned once the project has been kickstarted.
+# Please ensure the starterkit deletes this file.
+#
+# Any change you wish to apply to the actual initial .gitignore file
+# of the project should be done to the .gitignore.dist file instead.
+
+config.js
+docker-compose.yml
