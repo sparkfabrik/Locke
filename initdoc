@@ -32,10 +32,10 @@ do
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
-            echo "rm -rf ./content/*"
-            echo "rm -rf ./assets/*"
-            echo "cp -R ./templates/${TPL}/content/* ./content/."
-            echo "cp -R ./templates/${TPL}/assets/* ./assets/."
+            rm -rf ./content/*
+            rm -rf ./assets/*
+            cp -R ./templates/$TPL/content/* ./content/.
+            cp -R ./templates/$TPL/assets/* ./assets/.
             # Bye
             echo
             echo "All done! Enjoy your documentation."
