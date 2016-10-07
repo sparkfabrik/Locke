@@ -1,0 +1,51 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+# Let the user call out from a potentially dangerous situation :)
+printf "${RED}This script will erase all your current documentation"
+printf "\nand copy a documentation template in place.${NC}"
+echo
+read -p "If you don't want this to happen, press Q now to quit! Any other key will continue." -n 1 -r
+echo
+if [[ $REPLY =~ ^[Qq]$ ]]
+then
+  echo
+  echo Wise choice! Bye
+  exit 0
+fi
+
+# List all available templates and make the user choose which one to apply
+TPLS="$(ls ./templates)"
+echo "Pick an available template: "
+select TPL in "${TPLS[@]}"
+do
+
+
+    # Ask the user if she wants to erase current doc
+    read -p "Do you really want to completely erase your current documentation? WARNING: THIS CAN'T BE UNDONE! [y/n]: " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        read -p "Are you really sure? AGAIN: THIS CAN'T BE UNDONE! [y/n]: " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            echo "rm -rf ./content/*"
+            echo "rm -rf ./assets/*"
+            echo "cp -R ./templates/${TPL}/content/* ./content/."
+            echo "cp -R ./templates/${TPL}/assets/* ./assets/."
+            # Bye
+            echo
+            echo "All done! Enjoy your documentation."
+            echo
+            break
+        fi
+    fi
+
+    echo
+    echo "OK, bye!"
+    echo
+    break
+done
