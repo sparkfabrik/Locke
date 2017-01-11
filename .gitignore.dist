@@ -1,0 +1,7 @@
+# Spark theme.
+
+themes/**
+
+# System files.
+.DS_Store
+

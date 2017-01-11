@@ -36,6 +36,8 @@ then
   git init -q
   echo "Git repository initialized"
 
+  rm -f .gitignore
+  cp .gitignore.dist .gitignore
 
   # Try to set remotes if available
   read -p "Provide the new origin remote for your project (leave empty for none): " REMOTE
@@ -58,7 +60,7 @@ then
   echo "Standard documentation removed"
 fi
 
-read -p "Clean workspace? (will delete this script also!) [y/n]: " -n 1 -r
+read -p "Clean workspace? (will delete this script too!) [y/n]: " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
