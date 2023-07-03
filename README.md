@@ -1,6 +1,9 @@
 Locke
 ======
 
+> **NOTE**: This repository is no longer maintained and it has been archived.
+> In can still be forked and remains read-only.
+
 Locke is a basic documentation repository based on the standard Raneto distribution.
 When Locke was created Raneto was at version 0.9.0 and was in the middle of the process of becoming an npm package. The main repository needed polishing and the base distribution has some hardcoded stuff that makes a bit difficult to customize themes and configuration. This was the main reason Locke was created as a fork of Raneto.
 
